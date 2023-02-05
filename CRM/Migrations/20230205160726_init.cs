@@ -1,4 +1,9 @@
 ﻿using System;
+using CRM.Models.DBClasses;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Net;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -55,7 +60,7 @@ namespace CRM.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerNumber = table.Column<int>(type: "int", nullable: false),
                     TimeofCall = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,9 +75,9 @@ namespace CRM.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     SurName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    PostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
@@ -226,6 +231,8 @@ namespace CRM.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
+            
+
             var sql = @"
 DELETE FROM AspNetRoles
 INSERT INTO AspNetRoles (ID, NAME) VALUES
@@ -234,7 +241,34 @@ INSERT INTO AspNetRoles (ID, NAME) VALUES
 
 
 
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'AddCustomer')
+IF EXISTS(SELECT* FROM sys.objects WHERE type = 'P' AND name = 'GetCustomerCalls')
+DROP PROCEDURE GetCustomerCalls
+GO
+
+CREATE PROCEDURE GetCustomerCalls
+AS
+
+
+        SELECT* FROM CustomerCalls
+GO
+
+
+
+
+IF EXISTS(SELECT* FROM sys.objects WHERE type = 'P' AND name = 'GetCustomers')
+DROP PROCEDURE GetCustomers
+GO
+
+CREATE PROCEDURE GetCustomers
+AS
+
+
+        SELECT* FROM Customers
+GO
+
+
+
+IF EXISTS(SELECT* FROM sys.objects WHERE type = 'P' AND name = 'AddCustomer')
 DROP PROCEDURE AddCustomer
 GO
 
@@ -248,29 +282,31 @@ CREATE PROCEDURE AddCustomer
 ,@UserId VARCHAR(100) NULL
 
 AS
-INSERT INTO [dbo].[Customers]
-           ([Name]
+INSERT INTO[dbo].[Customers]
+            ([Name]
            ,[SurName]
            ,[Address]
            ,[PostalCode]
            ,[Country]
-           ,[DateOfBirth]
+            ,[DateOfBirth]
            ,[UserId])
      VALUES
            (
-			 @Name
-			,@SurName
-			,@Address
-			,@PostalCode
-			,@Country
-			,@DateOfBirth
-			,@UserId
-		   )
+             @Name
+            , @SurName
+            , @Address
+            , @PostalCode
+            , @Country
+            , @DateOfBirth
+            , @UserId
+           )
 
-		SELECT TOP 1 * FROM Customers WHERE NUMBER = SCOPE_IDENTITY ()
+
+        SELECT TOP 1 * FROM Customers WHERE NUMBER = SCOPE_IDENTITY()
 GO
 ";
             migrationBuilder.Sql(sql);
+
 
         }
 
