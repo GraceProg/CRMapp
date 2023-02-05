@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\CODE\\Experiment\\Tiwa_Project\\CRM\\CRM\\CRM.csproj": {}
+    "C:\\CODE\\CRMapp\\CRM\\CRM.csproj": {}
   },
   "projects": {
-    "C:\\CODE\\Experiment\\Tiwa_Project\\CRM\\CRM\\CRM.csproj": {
+    "C:\\CODE\\CRMapp\\CRM\\CRM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\CODE\\Experiment\\Tiwa_Project\\CRM\\CRM\\CRM.csproj",
+        "projectUniqueName": "C:\\CODE\\CRMapp\\CRM\\CRM.csproj",
         "projectName": "CRM",
-        "projectPath": "C:\\CODE\\Experiment\\Tiwa_Project\\CRM\\CRM\\CRM.csproj",
+        "projectPath": "C:\\CODE\\CRMapp\\CRM\\CRM.csproj",
         "packagesPath": "C:\\Users\\titusxp\\.nuget\\packages\\",
-        "outputPath": "C:\\CODE\\Experiment\\Tiwa_Project\\CRM\\CRM\\obj\\",
+        "outputPath": "C:\\CODE\\CRMapp\\CRM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -23,7 +23,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -31,8 +31,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -43,30 +43,30 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[6.0.13, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[6.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[6.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[6.0.13, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[6.0.11, )"
             }
           },
           "imports": [
