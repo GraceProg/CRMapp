@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/07/2023 19:13:12" ReportInfo.Modified="02/07/2023 20:32:50" ReportInfo.CreatorVersion="2022.2.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Customer" ReferenceName="CustomerRef" DataType="null" Enabled="true">
+      <Column Name="Number" DataType="System.Int32"/>
+      <Column Name="Name" DataType="System.String"/>
+      <Column Name="SurName" DataType="System.String"/>
+      <Column Name="Address" DataType="System.String"/>
+      <Column Name="PostalCode" DataType="System.String"/>
+      <Column Name="Country" DataType="System.String"/>
+      <Column Name="DateOfBirth" DataType="System.DateTime"/>
+      <Column Name="UserId" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <Parameter Name="ReportPeriod" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="56.7">
+      <TextObject Name="Text11" Left="141.75" Top="9.45" Width="330.75" Height="18.9" Text="[ReportPeriod]" HorzAlign="Center" Font="Arial, 10pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="60.7" Width="718.2" Height="47.25">
+      <TextObject Name="Text2" Left="18.9" Width="94.5" Height="18.9" Text="Number" Font="Arial, 10pt"/>
+      <TextObject Name="Text4" Left="141.75" Width="94.5" Height="18.9" Text="Name" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="264.6" Width="94.5" Height="18.9" Text="SurName" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="396.9" Width="94.5" Height="18.9" Text="Country" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="529.2" Width="94.5" Height="18.9" Text="DateOfBirth" Font="Arial, 10pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="111.95" Width="718.2" Height="75.6" DataSource="Customer">
+      <TextObject Name="Text1" Left="18.9" Top="9.45" Width="94.5" Height="18.9" Text="[Customer.Number]" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="141.75" Top="9.45" Width="94.5" Height="18.9" Text="[Customer.Name]" Font="Arial, 10pt"/>
+      <TextObject Name="Text5" Left="264.6" Top="9.45" Width="94.5" Height="18.9" Text="[Customer.SurName]" Font="Arial, 10pt"/>
+      <TextObject Name="Text7" Left="396.9" Top="9.45" Width="94.5" Height="18.9" Text="[Customer.Country]" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Left="529.2" Top="9.45" Width="94.5" Height="18.9" Text="[Customer.DateOfBirth]" Format="Date" Format.Format="d" Font="Arial, 10pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="191.55" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>
