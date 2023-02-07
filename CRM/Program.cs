@@ -30,6 +30,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+var dbContext = new AppDbContext(connectionstring);
+await dbContext.Database.MigrateAsync();
 
 app.MapControllerRoute(
     name: "default",
