@@ -11,6 +11,7 @@ services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfi
 //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
 services.AddControllersWithViews();
 services.AddRazorPages();
+services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -36,10 +37,6 @@ await dbContext.Database.MigrateAsync();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Customers}/{action=Index}/{id?}");
-app.MapRazorPages();
-
-
-
 
 
 app.Run();
