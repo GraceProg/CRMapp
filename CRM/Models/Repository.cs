@@ -89,7 +89,7 @@ namespace CRM.Models
             return customers.FirstOrDefault();
         }
 
-        public void SaveCustomer(Customer customer)
+        public int SaveCustomer(Customer customer)
         {
             var parameters = new[]
             {
@@ -100,9 +100,20 @@ namespace CRM.Models
                 new SqlParameter() { ParameterName = "PostalCode", SqlDbType = SqlDbType.VarChar, Value = customer.PostalCode },
                 new SqlParameter() { ParameterName = "Country", SqlDbType = SqlDbType.VarChar, Value = customer.Country },
                 new SqlParameter() { ParameterName = "DateOfBirth", SqlDbType = SqlDbType.DateTime, Value = customer.DateOfBirth },
-                new SqlParameter() { ParameterName = "UserId", SqlDbType = SqlDbType.Int, Value = customer.UserId },
+                new SqlParameter() { ParameterName = "UserId", SqlDbType = SqlDbType.VarChar, Value = string.IsNullOrWhiteSpace(customer.UserId) ? "xx" : customer.UserId },
             };
-            var customers = RunCommand(storedProcedureName: "SaveCustomer", parameters);
+            return RunCommand(storedProcedureName: "SaveCustomer", parameters);
         }
+
+
+        public int DeleteCustomer(int customerNumber)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter() { ParameterName = "CustomerNumber", SqlDbType = SqlDbType.Int, Value = customerNumber }
+            };
+            return RunCommand(storedProcedureName: "DeleteCustomer", parameters);
+        }
+
     }
 }

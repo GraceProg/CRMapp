@@ -1,8 +1,8 @@
 ﻿@using CRM.Models.DBClasses;
 
 @model List<Customer>
-
-<a href="~/customers/generate">Download report</a>
+@*
+<a href="~/customers/generate">Download report</a>*@
 
 @{
     ViewData["Title"] = "Customers";
@@ -11,7 +11,8 @@
 
 <!-- Button trigger modal -->
 <div class="col-12">
-    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            onclick="AddOrEditCustomer(0)">
         New Customer
     </button>
     <br /> <br />
@@ -131,7 +132,7 @@
                     <td>
                         <button type="button" class="btn btn-outline-info" 
                             data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                onclick="EditCustomer(@customer.Number)">
+                            onclick="AddOrEditCustomer(@customer.Number)">
                             Edit
                         </button>
                         <button type="button" class="btn btn-danger" onclick="DeleteCustomer(@customer.Number)">

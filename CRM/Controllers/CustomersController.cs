@@ -4,8 +4,10 @@ using CRM.Models.DBClasses;
 using FastReport;
 using FastReport.Export.PdfSimple;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using System.Net;
 using System.Web;
 
 namespace CRM.Controllers
@@ -29,6 +31,7 @@ namespace CRM.Controllers
             }
         }
 
+        [HttpGet]
         public Customer Get(int customerNumber)
         {
             using (var repo = new Repository(Configuration))
@@ -37,18 +40,27 @@ namespace CRM.Controllers
                 return customer;
             }
         }
+        [HttpGet]
+        public int delete(int customerNumber)
+        {
+            using (var repo = new Repository(Configuration))
+            {
+                return repo.DeleteCustomer(customerNumber);
+            }
+        }
 
-        public void Save([FromBody] Customer customer)
+        public void Save(Customer customer)
         {
             //var customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(customerString);
-            //using (var repo = new Repository(Configuration))
-            //{
-            //    repo.SaveCustomer(customer);
-            //    Index();
-            //}
+            using (var repo = new Repository(Configuration))
+            {
+                repo.SaveCustomer(customer);
+            }
         }
-        
 
+
+
+        [HttpGet]
         public FileResult Generate()
         {
             var webRootPath = _webHostEnvironment.WebRootPath;
