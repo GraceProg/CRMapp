@@ -24,15 +24,30 @@ namespace CRM.Controllers
         {
             using (var repo = new Repository(Configuration))
             {
-                //var startDate = new DateTime(DateTime.Now.Year, 1, 1);
-                //var endDate = DateTime.Now;
                 var customers = repo.GetCustomers();
-                //ViewBag.StartDate = startDate;
-                //ViewBag.EndDate = endDate;
-                ViewBag.Customers = customers;
-                return View();
+                return View(customers);
             }
         }
+
+        public Customer Get(int customerNumber)
+        {
+            using (var repo = new Repository(Configuration))
+            {
+                var customer = repo.GetCustomer(customerNumber);
+                return customer;
+            }
+        }
+
+        public void Save([FromBody] Customer customer)
+        {
+            //var customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(customerString);
+            //using (var repo = new Repository(Configuration))
+            //{
+            //    repo.SaveCustomer(customer);
+            //    Index();
+            //}
+        }
+        
 
         public FileResult Generate()
         {

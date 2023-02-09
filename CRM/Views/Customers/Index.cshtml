@@ -1,6 +1,6 @@
-﻿
-LIST OF CUSTOMERS GOES HERE
+﻿@using CRM.Models.DBClasses;
 
+@model List<Customer>
 
 <a href="~/customers/generate">Download report</a>
 
@@ -12,13 +12,8 @@ LIST OF CUSTOMERS GOES HERE
 <!-- Button trigger modal -->
 <div class="col-12">
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Add
+        New Customer
     </button>
-
-    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Edit
-    </button>
-    <button type="button" class="btn btn-danger">Delete</button>
     <br /> <br />
 </div>
 
@@ -28,69 +23,80 @@ LIST OF CUSTOMERS GOES HERE
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="col-12 modal-title text-center" id="staticBackdropLabel">ADD A NEW CUSTOMER</h5>
-
             </div>
             <div class="modal-body text-center">
 
-                <div class="row g-3 align-items-center">
-                    <div class="col-6">
-                        <label for="name" class="col-form-label">Name</label>
+                <div id="waitingGif">
+                    <img src="~/img/wait.gif" /> &nbsp;<span id="waitingMessage"></span>
+                </div>
+                <div id="customerDetailView">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="number" class="col-form-label">Number</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="customerNumberInput" class="form-control" aria-describedby="number" disabled>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <input type="text" id="name" class="form-control" aria-describedby="Name">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="name" class="col-form-label">Name</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="customerNameInput" class="form-control" aria-describedby="Name">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="surname" class="col-form-label">Surname</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="customerSurNameInput" class="form-control" aria-describedby="surname">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="address" class="col-form-label">Address</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="customerAddressInput" class="form-control" aria-describedby="address">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="postcode" class="col-form-label">Post Code</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" id="customerPostalCodeInput" class="form-control" aria-describedby="postcode">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="country" class="col-form-label">Country</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="customerCountryInput" class="form-control" aria-describedby="country">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <label for="dateofbirth" class="col-form-label">Date of Birth</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="date" id="customerDOBInput" class="form-control" aria-describedby="dateofbirth">
+                        </div>
                     </div>
                 </div>
-                <br />
-                <div class="row g-3 align-items-center">
-                    <div class="col-6">
-                        <label for="surname" class="col-form-label">Surename</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" id="surname" class="form-control" aria-describedby="surname">
-                    </div>
-                </div>
-                <br />
-                <div class="row g-3 align-items-center">
-                    <div class="col-6">
-                        <label for="address" class="col-form-label">Address</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" id="address" class="form-control" aria-describedby="address">
-                    </div>
-                </div>
-                <br />
-                <div class="row g-3 align-items-center">
-                    <div class="col-6">
-                        <label for="postcode" class="col-form-label">Post Code</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="number" id="address" class="form-control" aria-describedby="postcode">
-                    </div>
-                </div>
-                <br />
-                <div class="row g-3 align-items-center">
-                    <div class="col-6">
-                        <label for="country" class="col-form-label">Country</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" id="country" class="form-control" aria-describedby="country">
-                    </div>
-                </div>
-                <br />
-                <div class="row g-3 align-items-center">
-                    <div class="col-6">
-                        <label for="dateofbirth" class="col-form-label">Date of Birth</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="date" id="DOB" class="form-control" aria-describedby="dateofbirth">
-                    </div>
-                </div>
-                <br />
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-primary" onclick="SaveCustomer()">Save</button>
             </div>
         </div>
     </div>
@@ -108,190 +114,32 @@ LIST OF CUSTOMERS GOES HERE
                 <th>Post Code</th>
                 <th>Country</th>
                 <th>Date Of Birth</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td data-title="N°">1</td>
-                <td data-title="Name">Tiger </td>
-                <td data-title="Surename">Nixon</td>
-                <td data-title="Address">Edinburgh</td>
-                <td data-title="Post Code">61</td>
-                <td data-title="Country">Cameroon</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">2</td>
-                <td data-title="Name">Garrett </td>
-                <td data-title="Surename">Winters</td>
-                <td data-title="Address">Tokyo</td>
-                <td data-title="Post Code">63</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">3</td>
-                <td data-title="Name">Ashton Cox</td>
-                <td data-title="Surename">Cox</td>
-                <td data-title="Address">San Francisco</td>
-                <td data-title="Post Code">66</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">4</td>
-                <td data-title="Name">Cedric </td>
-                <td data-title="Surename">Kelly</td>
-                <td data-title="Address">Edinburgh</td>
-                <td data-title="Post Code">22</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">5</td>
-                <td data-title="Name">Airi </td>
-                <td data-title="Surename">Satou</td>
-                <td data-title="Address">Tokyo</td>
-                <td data-title="Post Code">33</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">6</td>
-                <td data-title="Name">Brielle </td>
-                <td data-title="Surename">Williamson</td>
-                <td data-title="Address">New York</td>
-                <td data-title="Post Code">61</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">7</td>
-                <td data-title="Name">Herrod </td>
-                <td data-title="Surename">Chandler</td>
-                <td data-title="Address">San Francisco</td>
-                <td data-title="Post Code">59</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">8</td>
-                <td data-title="Name">Rhona </td>
-                <td data-title="Surename">Davidson</td>
-                <td data-title="Address">Tokyo</td>
-                <td data-title="Post Code">55</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">9</td>
-                <td data-title="Name">Colleen </td>
-                <td data-title="Surename">Hurst</td>
-                <td data-title="Address">San Francisco</td>
-                <td data-title="Post Code">39</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">10</td>
-                <td data-title="Name">Sonya </td>
-                <td data-title="Surename">Frost</td>
-                <td data-title="Address">Edinburgh</td>
-                <td data-title="Post Code">23</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">11</td>
-                <td data-title="Name">Jena </td>
-                <td data-title="Surename">Gaines</td>
-                <td data-title="Address">London</td>
-                <td data-title="Post Code">30</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">12</td>
-                <td data-title="Name">Quinn </td>
-                <td data-title="Surename">Flynn</td>
-                <td data-title="Address">Edinburgh</td>
-                <td data-title="Post Code">22</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">13</td>
-                <td data-title="Name">Charde </td>
-                <td data-title="Surename">Marshall</td>
-                <td data-title="Address">San Francisco</td>
-                <td data-title="Post Code">36</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">14</td>
-                <td data-title="Name">Haley </td>
-                <td data-title="Surename">Kennedy</td>
-                <td data-title="Address">London</td>
-                <td data-title="Post Code">43</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">15</td>
-                <td data-title="Name">Tatyana </td>
-                <td data-title="Surename">Fitzpatrick</td>
-                <td data-title="Address">London</td>
-                <td data-title="Post Code">19</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">16</td>
-                <td data-title="Name">Michael </td>
-                <td data-title="Surename">Silva</td>
-                <td data-title="Address">London</td>
-                <td data-title="Post Code">66</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">17</td>
-                <td data-title="Name">Paul </td>
-                <td data-title="Surename">Byrd</td>
-                <td data-title="Address">New York</td>
-                <td data-title="Post Code">64</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">18</td>
-                <td data-title="Name">Gloria </td>
-                <td data-title="Surename">Little</td>
-                <td data-title="Address">New York</td>
-                <td data-title="Post Code">59</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">19</td>
-                <td data-title="Name">Bradley </td>
-                <td data-title="Surename">Greer</td>
-                <td data-title="Address">London</td>
-                <td data-title="Post Code">41</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-            <tr>
-                <td data-title="N°">20</td>
-                <td data-title="Name">Dai </td>
-                <td data-title="Surename">Rios</td>
-                <td data-title="Address">Edinburgh</td>
-                <td data-title="Post Code">35</td>
-                <td data-title="Country">England</td>
-                <td data-title="Date Of Birth">05-02-2023</td>
-            </tr>
-
+            @foreach(var customer in Model)
+            {
+                <tr>
+                    <td data-title="N°">@customer.Number</td>
+                    <td data-title="Name">@customer.Name </td>
+                    <td data-title="Surename">@customer.SurName</td>
+                    <td data-title="Address">@customer.Address</td>
+                    <td data-title="Post Code">@customer.PostalCode</td>
+                    <td data-title="Country">@customer.Country</td>
+                    <td data-title="Date Of Birth">@customer.DateOfBirth</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-info" 
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                onclick="EditCustomer(@customer.Number)">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="DeleteCustomer(@customer.Number)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
