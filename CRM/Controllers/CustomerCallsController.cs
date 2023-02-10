@@ -1,4 +1,6 @@
 ﻿using CRM.Models;
+using CRM.Models.DBClasses;
+using CRM.Models.Repositories;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +16,44 @@ namespace CRM.Controllers
         }
         public IActionResult Index()
         {
-            using (var repo = new Repository(Configuration))
+            using (var repo = new CustomerCallsRepository(Configuration))
             {
-                var customers = repo.GetCustomerCalls();
-                ViewBag.Customers = customers;
-                return View();
+                var customerCalls = repo.GetAll();
+                return View(customerCalls);
             }
         }
+
+
+
+        [HttpGet]
+        public CustomerCall? Get(Guid id)
+        {
+            using (var repo = new CustomerCallsRepository(Configuration))
+            {
+                var call = repo.Get(id);
+                return call;
+            }
+        }
+        [HttpGet]
+        public int delete(Guid id)
+        {
+            using (var repo = new CustomerCallsRepository(Configuration))
+            {
+                return repo.Delete(id);
+            }
+        }
+
+        public void Save(CustomerCall call)
+        {
+            using (var repo = new CustomerCallsRepository(Configuration))
+            {
+                if(call.Id == Guid.Empty)
+                {
+                    call.Id = Guid.NewGuid();
+                }
+                repo.Save(call);
+            }
+        }
+
     }
 }

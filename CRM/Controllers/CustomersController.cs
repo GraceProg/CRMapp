@@ -1,5 +1,6 @@
 ﻿using CRM.Models;
 using CRM.Models.DBClasses;
+using CRM.Models.Repositories;
 
 using FastReport;
 using FastReport.Export.PdfSimple;
@@ -22,39 +23,45 @@ namespace CRM.Controllers
             Configuration = configuration;
             _webHostEnvironment = env;
         }
+        
         public IActionResult Index()
         {
-            using (var repo = new Repository(Configuration))
+            var customers = getAll();
+            return View(customers);
+        }
+        public List<Customer> getAll()
+        {
+            using (var repo = new CustomersRepository(Configuration))
             {
-                var customers = repo.GetCustomers();
-                return View(customers);
+                var customers = repo.GetAll();
+                return customers;
             }
         }
 
         [HttpGet]
         public Customer Get(int customerNumber)
         {
-            using (var repo = new Repository(Configuration))
+            using (var repo = new CustomersRepository(Configuration))
             {
-                var customer = repo.GetCustomer(customerNumber);
+                var customer = repo.Get(customerNumber);
                 return customer;
             }
         }
         [HttpGet]
         public int delete(int customerNumber)
         {
-            using (var repo = new Repository(Configuration))
+            using (var repo = new CustomersRepository(Configuration))
             {
-                return repo.DeleteCustomer(customerNumber);
+                return repo.Delete(customerNumber);
             }
         }
 
         public void Save(Customer customer)
         {
             //var customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Customer>(customerString);
-            using (var repo = new Repository(Configuration))
+            using (var repo = new CustomersRepository(Configuration))
             {
-                repo.SaveCustomer(customer);
+                repo.Save(customer);
             }
         }
 

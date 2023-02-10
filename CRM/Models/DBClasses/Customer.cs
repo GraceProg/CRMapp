@@ -19,5 +19,6 @@ namespace CRM.Models.DBClasses
         public DateTime? DateOfBirth { get; set; }
         [StringLength(100)]
         public string UserId { get; set; }
+        public ICollection<CustomerCall> CustomerCalls { get; set; }
     }
 }
