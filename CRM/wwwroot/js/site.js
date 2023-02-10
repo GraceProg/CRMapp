@@ -1,10 +1,19 @@
-﻿
+﻿//Order customer table
 $(document).ready(function () {
     $('#table').DataTable({
+
+        "ordering": false
+   
+    });
+});
+
+//Order Calls table
+$(document).ready(function () {
+    $('#tables').DataTable({
         "ordering": true,
         "columnDefs": [{
-            "targets": [1, 2, 3, 4],
-            "ordorable": false
+            "targets": [1,2,3,4],
+            "orderable": false
         }]
     });
 });
