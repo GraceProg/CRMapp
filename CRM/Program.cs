@@ -23,6 +23,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseFastReport();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

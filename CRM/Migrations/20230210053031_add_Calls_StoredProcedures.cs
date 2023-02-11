@@ -127,6 +127,32 @@ INSERT INTO [dbo].[CustomerCalls] ([Id] ,[CustomerNumber] ,[TimeofCall] ,[Notes]
 ,(NewId(), 4, '2020-11-4 10:01', 'NOtes', 'Subject')
 ,(NewId(), 9, '2020-11-4 10:01', 'NOtes', 'Subject')
 GO
+
+
+INSERT INTO [dbo].[CustomerCalls]
+           ([Id]
+           ,[CustomerNumber]
+           ,[TimeofCall]
+           ,[Notes]
+           ,[Subject])
+     SELECT NewId()
+      ,[CustomerNumber]
+      ,[TimeofCall]
+      ,[Notes]
+      ,[Subject]
+  FROM [crm].[dbo].[CustomerCalls]
+INSERT INTO [dbo].[CustomerCalls]
+           ([Id]
+           ,[CustomerNumber]
+           ,[TimeofCall]
+           ,[Notes]
+           ,[Subject])
+     SELECT NewId()
+      ,[CustomerNumber]
+      ,[TimeofCall]
+      ,[Notes]
+      ,[Subject]
+  FROM [crm].[dbo].[CustomerCalls]
 ";
             migrationBuilder.Sql(sql);
         }
