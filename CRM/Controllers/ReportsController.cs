@@ -1,14 +1,11 @@
 ﻿using CRM.Models.DBClasses;
 using FastReport.Export.PdfSimple;
 using FastReport;
-
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using FastReport.Web;
 using FastReport.Export.Html;
-using FastReport.Utils;
-using Microsoft.Extensions.Hosting;
 using CRM.Models.Repositories;
+using System.Drawing;
 
 namespace CRM.Controllers
 {
@@ -25,47 +22,19 @@ namespace CRM.Controllers
 
         public IActionResult Index()
         {
-            using(var customersRepo = new CustomersRepository(Configuration))
+            using (var callsRepo = new CustomerCallsRepository(Configuration))
             {
-                using (var callsRepo = new CustomerCallsRepository(Configuration))
-                {
-                    var webRootPath = _webHostEnvironment.WebRootPath;
-                    var path = Path.Combine(Directory.GetParent(webRootPath)?.FullName, "customerCalls.frx");
-                    var webReport = new WebReport();
-                    webReport.Toolbar.Exports.ExportTypes = Exports.All;
-                    webReport.Report.Load(path);
-                    var customers = customersRepo.GetAll();
-                    var calls = callsRepo.GetAll();
-                    webReport.Report.RegisterData(customers, "CustomerRef");
-                    webReport.Report.RegisterData(calls, "CustomerCallRef");
-                    return View(webReport);
-                }
+                var webRootPath = _webHostEnvironment.WebRootPath;
+                var path = Path.Combine(Directory.GetParent(webRootPath)?.FullName, "calls.frx");
+                var webReport = new WebReport();
+                webReport.Toolbar.Exports.ExportTypes = Exports.All;
+                webReport.Toolbar.Color = Color.Cornsilk;
+                webReport.Toolbar.ShowPrint = true;
+                webReport.Report.Load(path);
+                var calls = callsRepo.GetAll();
+                webReport.Report.RegisterData(calls, "CustomerCallRef");
+                return View(webReport);
             }
-        }
-
-        public IActionResult Report()
-        {
-            var webRootPath = _webHostEnvironment.WebRootPath;
-            var path = Path.Combine(Directory.GetParent(webRootPath)?.FullName, "customerCalls.frx");
-            var webReport = new WebReport();
-            webReport.Report.Load(path);
-
-            var customers = new List<Customer>
-            {
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-                new Customer { Number = 1, Name = "John", SurName = "Doe", DateOfBirth = DateTime.Now, Country = "Cameroon"},
-            };
-            webReport.Report.SetParameterValue("ReportPeriod", "January 2023");
-            webReport.Report.RegisterData(customers, "CustomerRef");
-            return View(webReport);
         }
 
         [HttpGet]

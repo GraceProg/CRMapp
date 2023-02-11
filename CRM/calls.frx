@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/07/2023 19:13:12" ReportInfo.Modified="02/11/2023 19:31:09" ReportInfo.CreatorVersion="2022.2.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="CustomerCall" ReferenceName="CustomerCallRef" DataType="null" Enabled="true">
+      <Column Name="Id" DataType="System.Guid"/>
+      <Column Name="CustomerNumber" DataType="System.Int32"/>
+      <Column Name="TimeofCall" DataType="System.DateTime"/>
+      <Column Name="Notes" DataType="System.String"/>
+      <Column Name="Subject" DataType="System.String"/>
+      <Column Name="CustomerName" DataType="System.String"/>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text1" Left="18.9" Top="9.45" Width="680.4" Height="28.35" Border.Lines="All" Fill.Color="0, 0, 0" Text="CUSTOMER CALLS REPORT" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 14pt, style=Bold" TextFill.Color="White"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="40.09" Width="718.2" Height="22.68">
+      <TextObject Name="Text3" Left="18.9" Width="132.3" Height="18.9" Border.Lines="All" Fill.Color="64, 64, 64" Text="Customer" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text5" Left="151.2" Width="113.4" Height="18.9" Border.Lines="All" Fill.Color="64, 64, 64" Text="Time of call" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text7" Left="264.6" Width="151.2" Height="18.9" Border.Lines="All" Fill.Color="64, 64, 64" Text="Subject" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+      <TextObject Name="Text9" Left="415.8" Width="283.5" Height="18.9" Border.Lines="All" Fill.Color="64, 64, 64" Text="Notes" VertAlign="Center" Font="Arial, 10pt, style=Bold" TextFill.Color="White"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="65.05" Width="718.2" Height="18.9" DataSource="CustomerCall">
+      <TextObject Name="Text2" Left="18.9" Width="132.3" Height="18.9" Border.Lines="All" Text="[CustomerCall.CustomerName]" Font="Arial, 10pt"/>
+      <TextObject Name="Text4" Left="151.2" Width="113.4" Height="18.9" Border.Lines="All" Text="[CustomerCall.TimeofCall]" Format="Date" Format.Format="d" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="264.6" Width="151.2" Height="18.9" Border.Lines="All" Text="[CustomerCall.Subject]" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="415.8" Width="283.5" Height="18.9" Border.Lines="All" Text="[CustomerCall.Notes]" Font="Arial, 10pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="86.24" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>
