@@ -1,11 +1,11 @@
-﻿using CRM.Models;
-using CRM.Models.DBClasses;
+﻿using CRM.Models.DBClasses;
 using CRM.Models.Repositories;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Controllers
 {
+    //[Authorize(Roles = "Employee")]
     public class CustomerCallsController : Controller
     {
         public IConfiguration Configuration { get; }

@@ -11,10 +11,6 @@ namespace CRM.Models
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-        public AppDbContext()
-        {
-
-        }
         public AppDbContext(string connectionstring)
         {
             DBConnectionString = connectionstring;

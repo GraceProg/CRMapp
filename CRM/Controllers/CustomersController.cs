@@ -1,16 +1,11 @@
-﻿using CRM.Models;
-using CRM.Models.DBClasses;
+﻿using CRM.Models.DBClasses;
 using CRM.Models.Repositories;
-
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Net;
-using System.Web;
 
 namespace CRM.Controllers
 {
+    //[Authorize(Roles = "Manager")]
     public class CustomersController : Controller
     {
         public IConfiguration Configuration { get; }
@@ -21,7 +16,7 @@ namespace CRM.Controllers
         }
         
         public IActionResult Index()
-        {
+        { 
             var customers = getAll();
             return View(customers);
         }

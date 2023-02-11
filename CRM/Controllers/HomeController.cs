@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
-
 using CRM.Models;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Controllers

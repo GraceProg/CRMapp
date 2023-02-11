@@ -9,6 +9,7 @@ using System.Drawing;
 
 namespace CRM.Controllers
 {
+    //[Authorize(Roles = "Employee")]
     public class ReportsController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
