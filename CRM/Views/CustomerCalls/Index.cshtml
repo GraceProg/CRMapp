@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Calls";
 }
-
+@inject LanguageService language
 
 <!-- Button trigger modal -->
 <div class="col-12">
@@ -95,10 +95,10 @@
     <table id="tables" class="table text-white table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Customer</th>
-                <th>Time Of Call</th>
-                <th>Subject</th>
-                <th>Description</th>
+                <th>@language.GetKey("Customer")</th>
+                <th>@language.GetKey("Time Of Call")</th>
+                <th>@language.GetKey("Subject")</th>
+                <th>@language.GetKey("Description")</th>
                 <th></th>
             </tr>
         </thead>
