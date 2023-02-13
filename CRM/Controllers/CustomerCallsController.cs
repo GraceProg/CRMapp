@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Controllers
 {
-    //[Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee")]
     public class CustomerCallsController : Controller
     {
         public IConfiguration Configuration { get; }

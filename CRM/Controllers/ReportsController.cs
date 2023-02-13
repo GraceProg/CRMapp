@@ -6,10 +6,11 @@ using FastReport.Web;
 using FastReport.Export.Html;
 using CRM.Models.Repositories;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CRM.Controllers
 {
-    //[Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee")]
     public class ReportsController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

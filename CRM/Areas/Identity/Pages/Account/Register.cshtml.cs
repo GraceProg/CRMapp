@@ -99,7 +99,7 @@ namespace CRM.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-
+          
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -116,6 +116,7 @@ namespace CRM.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.EmailConfirmed = true;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
