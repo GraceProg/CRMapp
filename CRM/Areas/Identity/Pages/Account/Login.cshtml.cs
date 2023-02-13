@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using CRM.Models;
+using Microsoft.AspNetCore.Server.HttpSys;
+using System.Configuration;
 
 namespace CRM.Areas.Identity.Pages.Account
 {
@@ -115,21 +119,37 @@ namespace CRM.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    var claims = new List<Claim>();
+
+                    using (var context = new AppDbContext(Constants.ConnectionString))
+                    {
+                        var user = context.Users.FirstOrDefault(u => u.UserName == Input.Email);
+
+                        var roleIds = context.UserRoles.Where(r => r.UserId == user.Id).Select(r => r.RoleId).ToList();
+
+                        var roles = context.Roles.Where(r => roleIds.Contains(r.Id)).ToList();
+
+                        if (roles.Any(r => r.Name.ToUpper() == "MANAGER"))
+                        {
+                            claims.Add(new Claim("Manager", "true"));
+                            returnUrl = "/Customers";
+                        }
+                        if (roles.Any(r => r.Name.ToUpper() == "EMPLOYEE"))
+                        {
+                            claims.Add(new Claim("Employee", "true"));
+                            returnUrl = "/CustomerCalls";
+                        }
+                    }
+
+
+                    var identity = new ClaimsIdentity(claims, Constants.CookieName);
+                    var claimsPrincipal = new ClaimsPrincipal(identity);
+                    await HttpContext.SignInAsync(Constants.CookieName, claimsPrincipal);
+
+
                     return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
+
                 }
             }
 

@@ -24,17 +24,27 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex  justify-content-between">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="CustomerCalls" asp-action="Index">Customer Calls</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
-                        </li>
-
-                        <partial name="_LoginPartial" />
+                        @{
+                            var isManager = User.Claims.Any(c => c.Type == "Manager");
+                            var isEmployee = User.Claims.Any(c => c.Type == "Employee");
+                            
+                            var x = 0;
+                        }
+                        @if (isManager)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
+                            </li>
+                        }
+                        @if (isEmployee)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="CustomerCalls" asp-action="Index">Customer Calls</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
+                            </li>
+                        }
                     </ul>
 
                     <div class="dropdown">
@@ -43,6 +53,10 @@
                             <a class="nav-link text-white" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US" ><i class="flag-icon flag-icon-gb"></i>English</a>
                             <a class="nav-link text-white" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="fr-FR" ><i class="flag-icon flag-icon-fr"></i>French</a>
                           </div>
+                    </div>
+
+                    <div class="mr-2 ">
+                        <partial name="_LoginStatusPartial" />
                     </div>
 
                 </div>

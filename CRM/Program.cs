@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionstring = builder.Configuration.GetConnectionString("crm");
+Constants.ConnectionString = connectionstring;
 var services = builder.Services;
 services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionstring));
 
@@ -55,37 +56,19 @@ services.AddRazorPages();
 services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
-services.Configure<IdentityOptions>(options =>
+builder.Services.AddAuthentication(Constants.CookieName).AddCookie(Constants.CookieName, options =>
 {
-    // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;
-
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
-    options.User.AllowedUserNameCharacters =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-});
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    // Cookie settings
-    options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-
+    options.Cookie.Name = Constants.CookieName;
     options.LoginPath = "/Identity/Account/Login";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-    options.SlidingExpiration = true;
 });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ManagerOnly", policy => policy.RequireClaim("Manager"));
+    options.AddPolicy("EmployeeOnly", policy => policy.RequireClaim("Employee"));
+});
+
 
 var app = builder.Build();
 

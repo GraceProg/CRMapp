@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Policy = "ManagerOnly")]
     public class CustomersController : Controller
     {
         public IConfiguration Configuration { get; }

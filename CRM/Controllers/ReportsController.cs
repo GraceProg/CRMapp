@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CRM.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Policy = "EmployeeOnly")]
     public class ReportsController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

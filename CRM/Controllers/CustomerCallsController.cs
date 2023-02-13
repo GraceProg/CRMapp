@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CRM.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Policy = "EmployeeOnly")]
     public class CustomerCallsController : Controller
     {
         public IConfiguration Configuration { get; }
